@@ -1,17 +1,8 @@
-objs/src/LedDriver/LedDriver.o: src/LedDriver/LedDriver.c \
- /home/osboxes/Documents/tdd_embeddedC/code/CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h \
- /home/osboxes/Documents/tdd_embeddedC/code/CppUTest/include/CppUTest/CppUTestConfig.h \
- /home/osboxes/Documents/tdd_embeddedC/code/CppUTest/include/CppUTest/CppUTestGeneratedConfig.h \
- /home/osboxes/Documents/tdd_embeddedC/code/CppUTest/include/CppUTest/StandardCLibrary.h \
+objs/./src/LedDriver/LedDriver.o: src/LedDriver/LedDriver.c \
+ unity.framework/extras/fixture/src/unity_fixture_malloc_overrides.h \
  include/LedDriver/LedDriver.h include/util/RuntimeError.h
 
-/home/osboxes/Documents/tdd_embeddedC/code/CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h:
-
-/home/osboxes/Documents/tdd_embeddedC/code/CppUTest/include/CppUTest/CppUTestConfig.h:
-
-/home/osboxes/Documents/tdd_embeddedC/code/CppUTest/include/CppUTest/CppUTestGeneratedConfig.h:
-
-/home/osboxes/Documents/tdd_embeddedC/code/CppUTest/include/CppUTest/StandardCLibrary.h:
+unity.framework/extras/fixture/src/unity_fixture_malloc_overrides.h:
 
 include/LedDriver/LedDriver.h:
 

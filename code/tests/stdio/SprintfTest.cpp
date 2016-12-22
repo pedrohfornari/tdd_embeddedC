@@ -22,24 +22,40 @@
 extern "C"
 {
 #include <stdio.h>
+#include <stdlib.h>
 #include <memory.h>
 }
 
 //START: testGroup
 TEST_GROUP(sprintf)
 {
-    char output[100];
+    #define MIN_BUF_SIZE (2 * sizeof(char))
+    
+    char * output = NULL;
     const char * expected;
+    
     void setup()
     {
-        memset(output, 0xaa, sizeof output);
+        output = (char *)malloc(MIN_BUF_SIZE);
+        memset(output, 0xaa, MIN_BUF_SIZE);
         expected = "";
     }
     void teardown()
     {
+        free(output);
     }
     void expect(const char * s)
     {
+        unsigned int lenght = strlen(s) + 2;
+        if(lenght > MIN_BUF_SIZE)
+        {
+            char *output_temp = (char *)realloc(output, lenght);
+            if(output_temp)
+            {
+                output = output_temp;
+                memset(output, 0xaa, lenght);
+            }
+        }
         expected = s;
     }
     void given(int charsWritten)

@@ -27,26 +27,41 @@
 
 #include "unity_fixture.h"
 #include <stdio.h>
+#include "stdlib.h"
 #include <memory.h>
 
 TEST_GROUP(sprintf);
 
-static char output[100];
-static const char * expected;
+static char *output = NULL;
+static const char *expected;
+#define MIN_OUTPUT_MEM (2 * sizeof(char))
 
 TEST_SETUP(sprintf)
 {
-    memset(output, 0xaa, sizeof output);
+    output = (char *)malloc(MIN_OUTPUT_MEM);
+    memset(output, 0xaa, MIN_OUTPUT_MEM);
     expected = "";
 }
 
 TEST_TEAR_DOWN(sprintf)
 {
+    free(output);
 }
 
 static void expect(const char * s)
 {
-    expected = s;
+    
+    int length = strlen(s) + 2;
+    if(length > MIN_OUTPUT_MEM)
+    {
+        char * output_temp = realloc(output, length);
+        if(output_temp)
+        {
+            output = output_temp;
+            memset(output, 0xaa, length);
+        }
+    }
+    expected = s;   
 }
 
 static void given(int charsWritten)
@@ -68,6 +83,19 @@ TEST(sprintf, InsertString)
 {
     expect("Hello World\n");
     given(sprintf(output, "Hello %s\n", "World"));
+}
+
+TEST(sprintf, StringWithSpace)
+{
+    expect("Hello World\n");
+    given(sprintf(output, "Hello World\n"));
+}
+
+//sprintf fails this test because numbers can have less characteres than it's definition size
+TEST(sprintf, StringWithNumber)
+{
+    expect("Hello 4 1.54\n");
+    given(sprintf(output, "Hello %c %f\n", 4, 1.54));
 }
 #endif  
 
