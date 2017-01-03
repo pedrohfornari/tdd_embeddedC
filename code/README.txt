@@ -21,7 +21,8 @@ Download and build CppUTest from cpputest.org
   make tdd
 
 Define CPPUTEST_HOME in your .bash_profile or similar file
-  export CPPUTEST_HOME=~/tools/cpputest
+  //export CPPUTEST_HOME=~/tools/cpputest
+  export CPPUTEST_HOME=~/Documents/tdd_embeddedC/code/CppUTest
 
 Build all examples
     cd <BookCodeParent>/code

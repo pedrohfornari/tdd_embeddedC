@@ -45,7 +45,7 @@ static void RunAllTests(void)
 {
     /*    RUN_TEST_GROUP(unity); */
     RUN_TEST_GROUP(LedDriver);
-    RUN_TEST_GROUP(sprintf);
+    /*RUN_TEST_GROUP(sprintf);
     RUN_TEST_GROUP(UnityFixture);
     RUN_TEST_GROUP(UnityCommandOptions);
     RUN_TEST_GROUP(LeakDetection);
@@ -53,6 +53,7 @@ static void RunAllTests(void)
     RUN_TEST_GROUP(LightControllerSpy);
     RUN_TEST_GROUP(LightScheduler);
     RUN_TEST_GROUP(LightSchedulerInitAndCleanup);
+    */
 }
 
 
