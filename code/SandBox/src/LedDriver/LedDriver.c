@@ -27,10 +27,32 @@
 #include "LedDriver.h"
 #include <stdlib.h>
 #include <memory.h>
-
-void LedDriver_Create(void)
+#include "stdint.h"
+#include "stdio.h"
+static uint16_t * ledsAddress;
+void LedDriver_Create(uint16_t * address)
 {
+    ledsAddress = address;
+    *ledsAddress = 0;
+    return;
 }
+void LedDriver_TurnOn(uint16_t ledNumber)
+{
+    if (ledNumber <= 16){
+    *ledsAddress |= (1<<(ledNumber-1));
+    return;
+    }
+    else printf("\n\nNot a Led Available in this position\n\n");
+}
+
+void LedDriver_TurnOff(uint16_t ledNumber)
+{
+    if (ledNumber <= 16){
+    *ledsAddress &= ~(1<<(ledNumber-1));
+    return;
+    }
+    else printf("\n\nNot a Led Available in this position\n\n");
+}   
 
 void LedDriver_Destroy(void)
 {

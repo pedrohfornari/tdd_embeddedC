@@ -29,4 +29,11 @@
 TEST_GROUP_RUNNER(LedDriver)
 {
     RUN_TEST_CASE(LedDriver, StartHere);
+    RUN_TEST_CASE(LedDriver, TurnOnLedOne);
+    RUN_TEST_CASE(LedDriver, TurnOffLedOne);
+    RUN_TEST_CASE(LedDriver, KeepLedFour);
+    RUN_TEST_CASE(LedDriver, BoundLimits);
+    RUN_TEST_CASE(LedDriver, OutofBound);
+    
 }
+

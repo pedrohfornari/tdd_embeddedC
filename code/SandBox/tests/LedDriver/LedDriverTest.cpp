@@ -22,12 +22,16 @@ extern "C"
 }
 
 #include "CppUTest/TestHarness.h"
+#include "stdlib.h"
+#include "stdint.h"
+
+static uint16_t virtualLeds;
 
 TEST_GROUP(LedDriver)
 {
     void setup()
     {
-      LedDriver_Create();
+      LedDriver_Create(&virtualLeds);
     }
 
     void teardown()
@@ -39,5 +43,8 @@ TEST_GROUP(LedDriver)
 TEST(LedDriver, Create)
 {
 //  FAIL("Start here");
+    virtualLeds = 0xffff;
+    LedDriver_Create(&virtualLeds);
+    CHECK_EQUAL(0, virtualLeds);
 }
 

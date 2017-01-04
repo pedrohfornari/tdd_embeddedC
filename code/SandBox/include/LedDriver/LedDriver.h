@@ -24,10 +24,15 @@
 /*-    www.renaissancesoftware.net james@renaissancesoftware.net       -*/
 /*- ------------------------------------------------------------------ -*/
 
+#include "stdlib.h"
+#include "stdint.h"
+
 #ifndef D_LedDriver_H
 #define D_LedDriver_H
 
-void LedDriver_Create(void);
+void LedDriver_Create(uint16_t * address);
+void LedDriver_TurnOn(uint16_t ledNumber);
+void LedDriver_TurnOff(uint16_t ledNumber);
 void LedDriver_Destroy(void);
 
 #endif  /* D_LedDriver_H */
