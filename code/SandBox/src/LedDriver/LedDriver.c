@@ -29,29 +29,46 @@
 #include <memory.h>
 #include "stdint.h"
 #include "stdio.h"
+#include <stdbool.h>
+
+enum {ALL_LEDS_ON = ~0, ALL_LEDS_OFF = ~ALL_LEDS_ON};
+
+/**Local variables**/
 static uint16_t * ledsAddress;
+static uint16_t ledsImage;
+
+/**Local Function Prototypes**/
+static uint16_t ConvertLedNum2Bit(uint16_t ledNumber);
+static bool IsLedOutOfBounds(uint16_t ledNumber);
+static void updateHardware(void);
+static void setLedImageBit(uint16_t ledNumber);
+static void clearLedImageBit(uint16_t ledNumber);
+
 void LedDriver_Create(uint16_t * address)
 {
     ledsAddress = address;
-    *ledsAddress = 0;
+    ledsImage = ALL_LEDS_OFF;
+    updateHardware();
     return;
 }
 void LedDriver_TurnOn(uint16_t ledNumber)
 {
-    if (ledNumber <= 16){
-    *ledsAddress |= (1<<(ledNumber-1));
-    return;
+    if (IsLedOutOfBounds(ledNumber)){
+        setLedImageBit(ledNumber);
+        updateHardware(); 
+        return;
     }
-    else printf("\n\nNot a Led Available in this position\n\n");
+    else return; //printf("\n\nNot a Led Available in this position\n\n");
 }
 
 void LedDriver_TurnOff(uint16_t ledNumber)
 {
-    if (ledNumber <= 16){
-    *ledsAddress &= ~(1<<(ledNumber-1));
-    return;
+    if (IsLedOutOfBounds(ledNumber)){
+        clearLedImageBit(ledNumber);
+        updateHardware();
+        return;
     }
-    else printf("\n\nNot a Led Available in this position\n\n");
+    else return; //printf("\n\nNot a Led Available in this position\n\n");
 }   
 
 void LedDriver_Destroy(void)
@@ -59,3 +76,45 @@ void LedDriver_Destroy(void)
 }
 
 
+void LedDriver_TurnAllOn(void)
+{
+    ledsImage = ALL_LEDS_ON;
+    updateHardware();
+}
+
+void LedDriver_TurnAllOff(void)
+{
+    ledsImage = ALL_LEDS_OFF;
+    updateHardware();
+}
+
+bool LedDriver_IsOn(uint16_t ledNumber)
+{
+    return ledsImage & (ConvertLedNum2Bit(ledNumber));
+}
+
+/*** Helper functions definition***/
+static uint16_t ConvertLedNum2Bit(uint16_t ledNumber)
+{
+    return (1<<(ledNumber-1));
+}
+
+static bool IsLedOutOfBounds(uint16_t ledNumber)
+{
+    return (ledNumber <= 16 && ledNumber >= 1);
+}
+
+static void updateHardware(void)
+{
+    *ledsAddress = ledsImage;
+}
+
+static void setLedImageBit(uint16_t ledNumber)
+{
+    ledsImage |= ConvertLedNum2Bit(ledNumber);
+}
+
+static void clearLedImageBit(uint16_t ledNumber)
+{
+    ledsImage &= ~ConvertLedNum2Bit(ledNumber);
+}

@@ -33,7 +33,13 @@ TEST_GROUP_RUNNER(LedDriver)
     RUN_TEST_CASE(LedDriver, TurnOffLedOne);
     RUN_TEST_CASE(LedDriver, KeepLedFour);
     RUN_TEST_CASE(LedDriver, BoundLimits);
-    RUN_TEST_CASE(LedDriver, OutofBound);
+    RUN_TEST_CASE(LedDriver, OutofBoundsTurningOn);
+    RUN_TEST_CASE(LedDriver, OutofBoundsTurningOff);    
+    RUN_TEST_CASE(LedDriver, TurnAllOn);
+    RUN_TEST_CASE(LedDriver, TurnOnAnyLed);
+    RUN_TEST_CASE(LedDriver, TurnOffAll);
+    RUN_TEST_CASE(LedDriver, TurnOffAnyLed);
+    RUN_TEST_CASE(LedDriver, IsOn);
     
 }
 

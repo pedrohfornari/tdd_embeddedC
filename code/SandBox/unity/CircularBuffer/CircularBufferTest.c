@@ -12,15 +12,17 @@
  /*-    and students of any test-driven development method              -*/
  /*- ------------------------------------------------------------------ -*/
 
- /*- --------------------Test List----------------------------------- -*/
- /*- All positions are cleared after initialization                   -*/
- /*- The first position can be written                                -*/
- /*- The other positions can be written                               -*/
- /*- One value should be written at a time                            -*/
- /*- Always have to write to the closest position of the last record  -*/
- /*- When the buffer is full it should not accept anything            -*/
- /*- When an output is requested all positions should be moved foward -*/
- /*- ---------------------------------------------------------------- -*/
+
+ /*- --------------------Test List----------------------------------------------------------------------------------------- -*/
+ /*- All positions are cleared after initialization  (DONE)                                                                 -*/
+ /*- The first position can be written                (DONE)                                                                -*/
+ /*- The other positions can be written              (DONE)                                                                 -*/
+ /*- One value should be written at a time           (DONE)                                                                 -*/
+ /*- Always have to write to the closest position of the last record (DONE)                                                 -*/
+ /*- When the buffer is full it should restart the pointer           (DONE)                                                 -*/
+ /*- When an output is requested the output pointer should be moved foward  (DONE)                                          -*/
+ /*- ---------------------------------------------------------------------------------------------------------------------- -*/
+
 #include "unity_fixture.h"
 #include "CircularBuffer.h"
 #include "stdlib.h"
@@ -78,5 +80,31 @@ TEST(CircularBuffer, ReachEndAndLoop)
             TEST_ASSERT_EQUAL(i, circbuffer[i]);
         else
             TEST_ASSERT_EQUAL(i, circbuffer[i-16]);
+    }
+}
+
+TEST(CircularBuffer, ReadFirstPos)
+{
+    uint16_t circbuffer[16];
+    uint16_t output;
+    CircularBuffer_Create(&circbuffer[0]);
+    for(int i = 0; i<17; i++)
+    {
+        CircularBuffer_Write(i);
+    }
+    output = CircularBuffer_Read();
+    TEST_ASSERT_EQUAL(16, output);
+}
+
+TEST(CircularBuffer, KeepReading)
+{
+    uint16_t circbuffer[16];
+    uint16_t output;
+    CircularBuffer_Create(&circbuffer[0]);
+    for(int i = 0; i<17; i++)
+    {
+        CircularBuffer_Write(i);
+        output = CircularBuffer_Read();
+        TEST_ASSERT_EQUAL(i, output);
     }
 }

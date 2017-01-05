@@ -29,5 +29,7 @@ TEST_GROUP_RUNNER(CircularBuffer)
     RUN_TEST_CASE(CircularBuffer, writefirstPos);
     RUN_TEST_CASE(CircularBuffer, KeepWriting);  
     RUN_TEST_CASE(CircularBuffer, ReachEndAndLoop);
+    RUN_TEST_CASE(CircularBuffer, ReadFirstPos);
+    RUN_TEST_CASE(CircularBuffer, KeepReading);
 }
 

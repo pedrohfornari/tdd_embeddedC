@@ -33,5 +33,5 @@
 void CircularBuffer_Create(uint16_t * address);
 void CircularBuffer_Destroy(void);
 void CircularBuffer_Write(int value);
-
+uint16_t CircularBuffer_Read(void);
 #endif  /* D_CircularBuffer_H */
