@@ -40,6 +40,8 @@ TEST_GROUP_RUNNER(LedDriver)
     RUN_TEST_CASE(LedDriver, TurnOffAll);
     RUN_TEST_CASE(LedDriver, TurnOffAnyLed);
     RUN_TEST_CASE(LedDriver, IsOn);
-    
+    RUN_TEST_CASE(LedDriver, IsOff);
+    RUN_TEST_CASE(LedDriver, OutofBoundsAreAlwaysOf);
+    RUN_TEST_CASE(LedDriver, TurnOffMultipleLeds);    
 }
 

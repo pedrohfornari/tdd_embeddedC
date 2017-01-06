@@ -93,6 +93,11 @@ bool LedDriver_IsOn(uint16_t ledNumber)
     return ledsImage & (ConvertLedNum2Bit(ledNumber));
 }
 
+bool LedDriver_IsOff(uint16_t ledNumber)
+{
+    return !LedDriver_IsOn(ledNumber);
+}
+
 /*** Helper functions definition***/
 static uint16_t ConvertLedNum2Bit(uint16_t ledNumber)
 {
